@@ -1,0 +1,35 @@
+name: "Conjur Secret Fetcher"
+description: "Fetch secrets from Conjur"
+ 
+inputs:
+  api-key:
+    description: "Conjur API key"
+    required: true
+  secret-path:
+    description: "Path to the Conjur secret"
+    required: true
+  appliance-url:
+    description: "Conjur Appliance URL"
+default: "https://pwclab.secretsmgr.cyberark.cloud"
+  account:
+    description: "Conjur account"
+    default: "conjur"
+  authn-login:
+    description: "Conjur authn login"
+    default: "host%2Fdata%2Fgithub-app"
+ 
+runs:
+  using: "composite"
+  steps:
+    - name: Fetch secret from Conjur
+      shell: bash
+      run: |
+        echo "Authenticating with Conjur..."
+        token=$(curl -s -d "${{ inputs.api-key }}" \
+          ${{ inputs.appliance-url }}/authn/${{ inputs.account }}/${{ inputs.authn-login }}/authenticate | base64 | tr -d '\r\n')
+ 
+        secret=$(curl -s \
+          -H "Authorization: Token token=\"$token\"" \
+          ${{ inputs.appliance-url }}/secrets/${{ inputs.account }}/variable/${{ inputs.secret-path }})
+ 
+        echo "Secret retrieved: $secret"
