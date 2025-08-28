@@ -2,7 +2,7 @@ name: "Conjur Secret Fetcher"
 description: "Fetch secrets from Conjur"
  
 inputs:
-  api-key:
+  CONJUR_API_KEY:
     description: "Conjur API key"
     required: true
   secret-path:
@@ -25,7 +25,7 @@ runs:
       shell: bash
       run: |
         echo "Authenticating with Conjur..."
-        token=$(curl -s -d "${{ inputs.api-key }}" \
+        token=$(curl -s -d "${{ inputs.CONJUR_API_KEY }}" \
           ${{ inputs.appliance-url }}/authn/${{ inputs.account }}/${{ inputs.authn-login }}/authenticate | base64 | tr -d '\r\n')
  
         secret=$(curl -s \
