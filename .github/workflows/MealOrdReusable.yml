@@ -1,0 +1,20 @@
+name: reusable-caller
+ 
+on:
+  workflow_call:
+    inputs:
+      USER:
+        required: true
+        type: string
+ 
+jobs:
+  call-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      - name: Pass USER to action
+        uses: ./github/actions/my-action   # Local action file
+        with:
+          USER: ${{ inputs.USER }}
