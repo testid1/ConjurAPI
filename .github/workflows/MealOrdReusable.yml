@@ -15,6 +15,6 @@ jobs:
         uses: actions/checkout@v4
  
       - name: Pass USER to action
-        uses: testid1/ConurAPT/.github/actions/conjur/action.yml@main   # Local action file
+        uses: testid1/ConjurAPI/.github/actions/conjur/action.yml@main   # Local action file
         with:
           USER: ${{ inputs.USER }}
