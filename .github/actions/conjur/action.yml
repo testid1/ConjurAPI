@@ -1,7 +1,7 @@
 name: "My Conjur Action"
 description: "Takes USER input and performs a task"
 inputs:
-  user:
+  USER:
     description: "Username from Conjur"
     required: true
 runs:
