@@ -7,11 +7,11 @@ on:
         required: true
         type: string
     secrets:
-      CONJUR_APPLIANCE_URL:
+      CONJUR_URL:
         required: true
       CONJUR_API_KEY:
         required: true
-      CONJUR_WORKLOAD_ID:
+      CONJUR_HOST_ID:
         required: true
       CONJUR_ACCOUNT:
         required: true
