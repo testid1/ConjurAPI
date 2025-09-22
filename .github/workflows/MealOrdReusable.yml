@@ -3,10 +3,19 @@ name: reusable-caller
 on:
   workflow_call:
     inputs:
-      USER:
+      CONJUR_VARIABLE_PATH:
         required: true
         type: string
- 
+    secrets:
+      CONJUR_APPLIANCE_URL:
+        required: true
+      CONJUR_API_KEY:
+        required: true
+      CONJUR_WORKLOAD_ID:
+        required: true
+      CONJUR_ACCOUNT:
+        required: true
+        
 jobs:
   call-action:
     runs-on: ubuntu-latest
@@ -22,7 +31,7 @@ jobs:
           account: ${{ secrets.CONJUR_ACCOUNT }}
           host_id: ${{ secrets.CONJUR_HOST_ID }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
-          secrets: data/vault/conjurtest/conjurtest/username|USER;data/vault/conjurtest/conjurtest/password|PASS        
+          secrets: ${{ inputs.CONJUR_VARIABLE_PATH }}
 
       - name: Pass USER to action
         uses: testid1/ConjurAPI/.github/actions/conjur@main   # Local action file
