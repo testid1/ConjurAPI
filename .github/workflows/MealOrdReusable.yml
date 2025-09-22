@@ -13,8 +13,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
- 
+        
+      - name: Fetch secrets from Conjur (API key auth)
+        id: conjur
+        uses: cyberark/conjur-action@v2.0.12
+        with:
+          url: ${{ secrets.CONJUR_URL }}
+          account: ${{ secrets.CONJUR_ACCOUNT }}
+          host_id: ${{ secrets.CONJUR_HOST_ID }}
+          api_key: ${{ secrets.CONJUR_API_KEY }}
+          secrets: data/vault/conjurtest/conjurtest/username|USER;data/vault/conjurtest/conjurtest/password|PASS        
+
       - name: Pass USER to action
         uses: testid1/ConjurAPI/.github/actions/conjur@main   # Local action file
         with:
-           USER: ${{ inputs.USER }}
+           USER: ${{ env.USER }}
