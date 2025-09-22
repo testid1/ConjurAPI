@@ -9,4 +9,4 @@ runs:
   steps:
     - name: Print user
       shell: bash
-      run: echo "USER is ${{ inputs.USER }}"
+      run: echo "USER is ${#USER}"
