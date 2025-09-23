@@ -36,4 +36,4 @@ jobs:
       - name: Pass USER to action
         uses: testid1/ConjurAPI/.github/actions/conjur@main   # Local action file
         with:
-           USERNAME: ${{ env.USER }}
+           USER: ${{ env.USER }}
