@@ -37,3 +37,9 @@ jobs:
         uses: testid1/ConjurAPI/.github/actions/conjur@main   # Local action file
         with:
            USER: ${{ env.USER }}
+
+      - name: Set Token value
+        shell: bash
+        run: |
+          echo "TOKN=${{ env.USER }}"
+          echo "TOKN length is ${#TOKN}"
